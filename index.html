@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<title>COMPANY BRAIN AI</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d30;--panel2:#17243a;--line:#263750;--text:#eef4ff;--muted:#a7b5ca;--accent:#63e6be;--blue:#83aaff;--danger:#ff8f9a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#172a47 0,#0b1220 45%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:1050px;margin:auto;padding:20px 14px 42px}.top{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:20px}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,#63e6be,#83aaff);color:#071322;font-size:25px;font-weight:900}
+h1{font-size:clamp(20px,4vw,29px);margin:0;letter-spacing:.4px}.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.pill{border:1px solid #315444;color:var(--accent);padding:7px 11px;border-radius:99px;font-size:12px}
+h2{font-size:17px;margin:0 0 14px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin-bottom:16px}
+.card,.panel{background:linear-gradient(150deg,rgba(23,36,58,.97),rgba(16,27,44,.97));border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 12px 28px #0002}
+.metric-label{color:var(--muted);font-size:12px}.metric{font-size:clamp(20px,4vw,27px);font-weight:750;margin-top:8px;overflow-wrap:anywhere}.metric-note{font-size:11px;color:var(--muted);margin-top:5px}
+.layout{display:grid;grid-template-columns:1.05fr .95fr;gap:14px;margin-bottom:14px}
+label{display:block;font-size:12px;color:var(--muted);margin:11px 0 6px}input,select,textarea{width:100%;padding:12px;background:#0b1424;border:1px solid #334761;border-radius:11px;color:var(--text);font:inherit;font-size:14px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+button{border:0;border-radius:11px;padding:11px 13px;font-weight:700;font-size:13px;cursor:pointer;background:var(--accent);color:#071722}
+button.secondary{background:#243650;color:var(--text);border:1px solid #3a506e}button.danger{background:#3b202b;color:#ffd8dd;border:1px solid #6a3544}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.hint{font-size:12px;line-height:1.5;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:460px}th,td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--muted);font-weight:600}td{overflow-wrap:anywhere}.table-wrap{overflow:auto}
+.insight{padding:12px;border:1px solid var(--line);border-radius:12px;margin:9px 0;background:#0e192a;font-size:13px;line-height:1.5}.insight strong{color:var(--accent)}.bar{height:8px;background:#263750;border-radius:20px;overflow:hidden;margin-top:7px}.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--blue));border-radius:20px}
+.empty{color:var(--muted);font-size:13px;padding:15px 0}.footer{text-align:center;color:#8292a9;font-size:11px;margin-top:22px}
+@media(max-width:700px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}.wrap{padding:15px 11px 32px}.card,.panel{padding:14px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="logo">B</div><div><h1>COMPANY BRAIN AI</h1><div class="sub">Business insights • Version 1 prototype</div></div></div>
+    <div class="pill">● DEMO MODE</div>
+  </header>
+
+  <section class="grid">
+    <div class="card"><div class="metric-label">TOTAL REVENUE</div><div class="metric" id="revenue">₹0</div><div class="metric-note">From entered records</div></div>
+    <div class="card"><div class="metric-label">TOTAL EXPENSES</div><div class="metric" id="expenses">₹0</div><div class="metric-note">From entered records</div></div>
+    <div class="card"><div class="metric-label">EST. PROFIT / LOSS</div><div class="metric" id="profit">₹0</div><div class="metric-note">Revenue − expenses</div></div>
+    <div class="card"><div class="metric-label">UNITS SOLD</div><div class="metric" id="units">0</div><div class="metric-note">Total recorded units</div></div>
+  </section>
+
+  <section class="layout">
+    <div class="panel">
+      <h2>Add a business record</h2>
+      <form id="recordForm">
+        <label for="date">Date</label><input id="date" type="date" required>
+        <label for="product">Product / service</label><input id="product" maxlength="80" placeholder="e.g. Notebook" required>
+        <label for="unitsInput">Units sold</label><input id="unitsInput" type="number" min="0" step="1" value="1" required>
+        <label for="revenueInput">Revenue (₹)</label><input id="revenueInput" type="number" min="0" step="0.01" placeholder="e.g. 1000" required>
+        <label for="expenseInput">Expense (₹)</label><input id="expenseInput" type="number" min="0" step="0.01" placeholder="e.g. 600" required>
+        <div class="actions"><button type="submit">+ Add record</button><button class="secondary" type="button" id="sampleBtn">Load sample data</button></div>
+      </form>
+      <p class="hint">Tip: Use sample data first to explore the dashboard. This prototype stores records in this browser on this device.</p>
+    </div>
+    <div class="panel">
+      <h2>Business insights</h2>
+      <div id="insights"><div class="empty">Add records to generate insights.</div></div>
+      <div class="actions"><button class="secondary" id="reportBtn" type="button">Copy report</button><button class="secondary" id="exportBtn" type="button">Export CSV</button></div>
+      <p class="hint">Insights are rule-based calculations in this first version, not a connected generative AI model. Recommendations are indicative; check business context before acting.</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap"><h2 style="margin-bottom:0">Business records</h2><button class="danger" id="clearBtn" type="button">Clear all data</button></div>
+    <div class="table-wrap" style="margin-top:12px">
+      <table><thead><tr><th>Date</th><th>Product / service</th><th>Units</th><th>Revenue</th><th>Expense</th><th>Profit</th><th></th></tr></thead><tbody id="recordsBody"></tbody></table>
+      <div class="empty" id="tableEmpty">No records yet. Load sample data to see how it works.</div>
+    </div>
+  </section>
+  <div class="footer">COMPANY BRAIN AI • V1 • Demo only • Do not enter confidential company data</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const STORAGE_KEY='companyBrainAI.records.v1';
+let records=[];
+const today=new Date(); $('date').value=[today.getFullYear(),String(today.getMonth()+1).padStart(2,'0'),String(today.getDate()).padStart(2,'0')].join('-');
+const money=n=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:2}).format(n);
+const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function load(){try{records=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');if(!Array.isArray(records))records=[]}catch(e){records=[]}render()}
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(records));render()}
+function totals(){return records.reduce((a,r)=>({revenue:a.revenue+r.revenue,expense:a.expense+r.expense,units:a.units+r.units}),{revenue:0,expense:0,units:0})}
+function render(){
+ const t=totals(),p=t.revenue-t.expense;
+ $('revenue').textContent=money(t.revenue);$('expenses').textContent=money(t.expense);$('profit').textContent=money(p);$('profit').style.color=p<0?'var(--danger)':'var(--accent)';$('units').textContent=t.units.toLocaleString('en-IN');
+ $('recordsBody').innerHTML=records.map((r,i)=>`<tr><td>${safe(r.date)}</td><td>${safe(r.product)}</td><td>${r.units}</td><td>${money(r.revenue)}</td><td>${money(r.expense)}</td><td>${money(r.revenue-r.expense)}</td><td><button class="danger" data-delete="${i}" aria-label="Delete record">×</button></td></tr>`).join('');
+ $('tableEmpty').style.display=records.length?'none':'block';
+ document.querySelectorAll('[data-delete]').forEach(b=>b.addEventListener('click',()=>{records.splice(Number(b.dataset.delete),1);save()}));
+ renderInsights(t,p);
+}
+function renderInsights(t,p){
+ const out=[];
+ if(!records.length){$('insights').innerHTML='<div class="empty">Add records to generate insights.</div>';return}
+ out.push(`<div class="insight"><strong>${p>=0?'Positive net result':'Net loss recorded'}:</strong> Revenue minus listed expenses is ${money(p)}. This is not necessarily accounting profit because taxes, returns, and missing costs may be excluded.</div>`);
+ const margin=t.revenue?100*p/t.revenue:0;
+ out.push(`<div class="insight"><strong>Net margin (estimate):</strong> ${margin.toFixed(1)}% of recorded revenue.</div>`);
+ const byProduct={};records.forEach(r=>{byProduct[r.product]=(byProduct[r.product]||0)+r.revenue-r.expense});
+ const best=Object.entries(byProduct).sort((a,b)=>b[1]-a[1])[0];
+ if(best)out.push(`<div class="insight"><strong>Highest net contribution in this data:</strong> ${safe(best[0])} (${money(best[1])}). This is based only on the records entered.</div>`);
+ const noRevenue=records.filter(r=>r.revenue===0);
+ if(noRevenue.length)out.push(`<div class="insight"><strong>Check records:</strong> ${noRevenue.length} record(s) have zero revenue. Confirm whether they are samples, returns, or missing entries.</div>`);
+ const highCost=records.filter(r=>r.expense>r.revenue);
+ if(highCost.length)out.push(`<div class="insight"><strong>Review loss-making records:</strong> ${highCost.length} record(s) have expenses higher than revenue. Check pricing and cost entries before deciding what to change.</div>`);
+ out.push(`<div class="insight"><strong>Suggested next step:</strong> Add more dates and products, then export the CSV to compare performance over time.</div>`);
+ $('insights').innerHTML=out.join('');
+}
+$('recordForm').addEventListener('submit',e=>{e.preventDefault();const r={date:$('date').value,product:$('product').value.trim(),units:Number($('unitsInput').value),revenue:Number($('revenueInput').value),expense:Number($('expenseInput').value)};if(!r.product||![r.units,r.revenue,r.expense].every(Number.isFinite)||r.units<0||r.revenue<0||r.expense<0){alert('Please check the fields and use non-negative numbers.');return}records.push(r);save();$('product').value='';$('unitsInput').value='1';$('revenueInput').value='';$('expenseInput').value='';});
+$('sampleBtn').addEventListener('click',()=>{records=[{date:'2026-10-25',product:'Notebook',units:10,revenue:1000,expense:600},{date:'2026-10-25',product:'Pen',units:20,revenue:500,expense:200},{date:'2026-10-25',product:'Bag',units:2,revenue:1600,expense:1200}];save()});
+$('clearBtn').addEventListener('click',()=>{if(confirm('Delete all records saved in this browser?')){records=[];save()}});
+function reportText(){const t=totals(),p=t.revenue-t.expense;return `COMPANY BRAIN AI — BUSINESS SUMMARY\nRecords: ${records.length}\nTotal revenue: ${money(t.revenue)}\nTotal expenses: ${money(t.expense)}\nEstimated profit/loss: ${money(p)}\nUnits sold: ${t.units}\nNote: Based only on entered records; not audited financial advice.`}
+$('reportBtn').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(reportText());alert('Report copied. You can paste it into a message or document.')}catch(e){prompt('Copy the report text below:',reportText())}});
+$('exportBtn').addEventListener('click',()=>{const rows=[['Date','Product','Units Sold','Revenue INR','Expense INR','Estimated Profit INR'],...records.map(r=>[r.date,r.product,r.units,r.revenue,r.expense,r.revenue-r.expense])];const csv=rows.map(row=>row.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='company-brain-ai-report.csv';a.click();URL.revokeObjectURL(url)});
+load();
+</script>
+</body>
+</html>
